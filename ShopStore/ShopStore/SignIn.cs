@@ -15,7 +15,6 @@ namespace ShopStore
 {
     public partial class SignIn : Form
     {
-        bool correctLogin = false;
         public string login = null;
         public string password = null;
         public DataContext dataContext = null;
@@ -42,35 +41,50 @@ namespace ShopStore
 
         private void btn_SignIn_Click(object sender, EventArgs e)
         {
-            Regex login_regex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+){5}$");
-            string login = txtBox_login.Text;
+            Regex regex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+){5}$");
 
-            if (login_regex.Match(login).Success)
+            string input_login = txtBox_login.Text;
+            string input_password = txtBox_password.Text;
+
+            if (regex.Match(input_login).Success && regex.Match(input_password).Success)
             {
+                txtBox_password.BackColor = Color.White;
                 txtBox_login.BackColor = Color.White;
-                correctLogin = true;
 
-                //var loignSuccess = from user in dataContext.GetTable<User>
-                //                   where user.
+                int corect_login = dataContext.GetTable<User>().Where(user => user.Login == input_login).Count();
 
+                if (corect_login == 1)
+                {
+                    
+                    var corect_password = dataContext.GetTable<User>().Where(user => user.Login == input_login).Where(user => user.Password == input_password.ToString()).Count();
+
+                    if (corect_password == 1)
+                    {
+                        MessageBox.Show("Enter!!!!!!!!!!!!!!!");
+                    }
+                    else
+                    {
+                        txtBox_password.BackColor = Color.PaleVioletRed;
+                        MessageBox.Show("Incorrect password");
+                    }
+                }
+                else
+                {
+                    txtBox_login.BackColor = Color.PaleVioletRed;
+                    MessageBox.Show("Incorrect username");
+                }
             }
             else
             {
-                txtBox_login.BackColor = Color.Red;
+                if (!regex.Match(input_password).Success)
+                {
+                    txtBox_password.BackColor = Color.PaleVioletRed;
+                }
+                if(!regex.Match(input_login).Success)
+                {
+                    txtBox_login.BackColor = Color.PaleVioletRed;
+                }
             }
-
-            
-        }
-
-        [Table(Name = "User")]
-        public class User
-        {
-            [Column(IsPrimaryKey = true, IsDbGenerated = true)]
-            public int Id { get; set; }
-            [Column]
-            public string Login { get; set; }
-            [Column]
-            public string Passwod { get; set; }
         }
     }
 }
