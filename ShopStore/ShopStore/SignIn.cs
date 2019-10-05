@@ -25,6 +25,7 @@ namespace ShopStore
             txtBox_password.PasswordChar = '*';
             this.FormClosed += SignIn_FormClosed;
             dataContext = dc;
+            this.MaximumSize = new System.Drawing.Size(277, 362);
         }
 
         private void SignIn_FormClosed(object sender, FormClosedEventArgs e)
