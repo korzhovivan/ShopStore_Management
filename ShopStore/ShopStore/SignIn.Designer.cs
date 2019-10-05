@@ -30,28 +30,28 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SignIn));
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_SignIn = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pictureBox_logo = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtBox_login = new System.Windows.Forms.TextBox();
+            this.txtBox_password = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btn_SignIn
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(73, 279);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(111, 32);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Sign in";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btn_SignIn.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.btn_SignIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.btn_SignIn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btn_SignIn.Location = new System.Drawing.Point(73, 279);
+            this.btn_SignIn.Name = "btn_SignIn";
+            this.btn_SignIn.Size = new System.Drawing.Size(111, 32);
+            this.btn_SignIn.TabIndex = 0;
+            this.btn_SignIn.Text = "Sign in";
+            this.btn_SignIn.UseVisualStyleBackColor = false;
+            this.btn_SignIn.Click += new System.EventHandler(this.btn_SignIn_Click);
             // 
             // contextMenuStrip1
             // 
@@ -78,21 +78,21 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Enter login:";
             // 
-            // textBox1
+            // txtBox_login
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.textBox1.Location = new System.Drawing.Point(17, 170);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(209, 31);
-            this.textBox1.TabIndex = 4;
+            this.txtBox_login.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.txtBox_login.Location = new System.Drawing.Point(17, 170);
+            this.txtBox_login.Name = "txtBox_login";
+            this.txtBox_login.Size = new System.Drawing.Size(209, 31);
+            this.txtBox_login.TabIndex = 4;
             // 
-            // textBox2
+            // txtBox_password
             // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.textBox2.Location = new System.Drawing.Point(17, 231);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(209, 31);
-            this.textBox2.TabIndex = 6;
+            this.txtBox_password.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
+            this.txtBox_password.Location = new System.Drawing.Point(17, 231);
+            this.txtBox_password.Name = "txtBox_password";
+            this.txtBox_password.Size = new System.Drawing.Size(209, 31);
+            this.txtBox_password.TabIndex = 6;
             // 
             // label2
             // 
@@ -109,12 +109,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(261, 323);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtBox_password);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtBox_login);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox_logo);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_SignIn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SignIn";
             this.Text = "Sign in";
@@ -126,12 +126,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_SignIn;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.PictureBox pictureBox_logo;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtBox_login;
+        private System.Windows.Forms.TextBox txtBox_password;
         private System.Windows.Forms.Label label2;
     }
 }
