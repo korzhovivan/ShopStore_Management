@@ -18,6 +18,7 @@ namespace ShopStore
         public string login = null;
         public string password = null;
         public DataContext dataContext = null;
+        public bool signInForm = true;
 
         public SignIn(DataContext dc)
         {
@@ -25,7 +26,7 @@ namespace ShopStore
             txtBox_password.PasswordChar = '*';
             this.FormClosed += SignIn_FormClosed;
             dataContext = dc;
-            this.MaximumSize = new System.Drawing.Size(277, 362);
+            this.MaximumSize = new System.Drawing.Size(278, 383);
         }
 
         private void SignIn_FormClosed(object sender, FormClosedEventArgs e)
@@ -52,28 +53,41 @@ namespace ShopStore
                 txtBox_password.BackColor = Color.White;
                 txtBox_login.BackColor = Color.White;
 
-                int corect_login = dataContext.GetTable<User>().Where(user => user.Login == input_login).Count();
-
-                if (corect_login == 1)
+                if (signInForm) //SIGN IN
                 {
-                    
-                    var corect_password = dataContext.GetTable<User>().Where(user => user.Login == input_login).Where(user => user.Password == input_password.ToString()).Count();
 
-                    if (corect_password == 1)
+
+
+                    int corect_login = dataContext.GetTable<User>().Where(user => user.Login == input_login).Count();
+
+                    if (corect_login == 1)
                     {
-                        MessageBox.Show("Enter!!!!!!!!!!!!!!!");
+                        var corect_password = dataContext.GetTable<User>().Where(user => user.Login == input_login).Where(user => user.Password == input_password.ToString()).Count();
+
+                        if (corect_password == 1)
+                        {
+                            MessageBox.Show("Enter!!!!!!!!!!!!!!!");
+                        }
+                        else
+                        {
+                            txtBox_password.BackColor = Color.PaleVioletRed;
+                            MessageBox.Show("Incorrect password");
+                        }
                     }
                     else
                     {
-                        txtBox_password.BackColor = Color.PaleVioletRed;
-                        MessageBox.Show("Incorrect password");
+                        txtBox_login.BackColor = Color.PaleVioletRed;
+                        MessageBox.Show("Incorrect username");
                     }
-                }
-                else
+                } //END
+
+                else //Create Acount
                 {
-                    txtBox_login.BackColor = Color.PaleVioletRed;
-                    MessageBox.Show("Incorrect username");
-                }
+                    User new_user = new User() { Login = txtBox_login.Text, Password = txtBox_password.Text };
+                    dataContext.GetTable<User>().InsertOnSubmit(new_user);
+                    dataContext.SubmitChanges();
+                    MessageBox.Show("Created new user");
+                }//End 
             }
             else
             {
@@ -86,6 +100,47 @@ namespace ShopStore
                     txtBox_login.BackColor = Color.PaleVioletRed;
                 }
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (signInForm)
+            {
+                RegistarionState();
+                signInForm = false;
+            }
+            else
+            {
+                SignInState();
+                signInForm = true;
+            }
+            
+        }
+        public void RegistarionState()
+        {
+            txtBox_login.Text = "";
+            txtBox_password.Text = "";
+
+            this.Text = "Create account";
+            label3.Text = "Have account?";
+            linkLabel1.Text = "Sign In!";
+
+            btn_SignIn.Text = "Create account";
+            btn_SignIn.Width = 158;
+            btn_SignIn.Height = 32;
+        }
+        public void SignInState()
+        {
+            txtBox_login.Text = "";
+            txtBox_password.Text = "";
+
+            this.Text = "Sign In";
+            label3.Text = "No account?";
+            linkLabel1.Text = "Create one!";
+
+            btn_SignIn.Text = "Sign in";
+            btn_SignIn.Width = 111;
+            btn_SignIn.Height = 32;
         }
     }
 }

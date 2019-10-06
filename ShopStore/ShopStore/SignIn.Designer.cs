@@ -37,6 +37,8 @@
             this.txtBox_login = new System.Windows.Forms.TextBox();
             this.txtBox_password = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_logo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,7 +47,7 @@
             this.btn_SignIn.BackColor = System.Drawing.SystemColors.HotTrack;
             this.btn_SignIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
             this.btn_SignIn.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btn_SignIn.Location = new System.Drawing.Point(73, 279);
+            this.btn_SignIn.Location = new System.Drawing.Point(68, 301);
             this.btn_SignIn.Name = "btn_SignIn";
             this.btn_SignIn.Size = new System.Drawing.Size(111, 32);
             this.btn_SignIn.TabIndex = 0;
@@ -104,11 +106,33 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Enter password:";
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(14, 278);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(62, 13);
+            this.linkLabel1.TabIndex = 7;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Create one!";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(14, 265);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(69, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "No account?";
+            // 
             // SignIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(261, 323);
+            this.ClientSize = new System.Drawing.Size(262, 344);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.txtBox_password);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtBox_login);
@@ -133,5 +157,7 @@
         private System.Windows.Forms.TextBox txtBox_login;
         private System.Windows.Forms.TextBox txtBox_password;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Label label3;
     }
 }
