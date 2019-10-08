@@ -15,10 +15,10 @@ namespace ShopStore
 {
     public partial class SignIn : Form
     {
-        public string login = null;
         public string password = null;
         public DataContext dataContext = null;
         public bool signInForm = true;
+        public User currentUser = null;
 
         public SignIn(DataContext dc)
         {
@@ -41,12 +41,15 @@ namespace ShopStore
             }
         }
 
-        private void btn_SignIn_Click(object sender, EventArgs e)
+        private async void Btn_SignIn_Click(object sender, EventArgs e)
         {
             Regex regex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+){5}$");
 
             string input_login = txtBox_login.Text;
             string input_password = txtBox_password.Text;
+
+            input_login = "korzik";
+            input_password = "123456";
 
             if (regex.Match(input_login).Success && regex.Match(input_password).Success)
             {
@@ -55,9 +58,6 @@ namespace ShopStore
 
                 if (signInForm) //SIGN IN
                 {
-
-
-
                     int corect_login = dataContext.GetTable<User>().Where(user => user.Login == input_login).Count();
 
                     if (corect_login == 1)
@@ -66,7 +66,9 @@ namespace ShopStore
 
                         if (corect_password == 1)
                         {
-                            MessageBox.Show("Enter!!!!!!!!!!!!!!!");
+                            this.DialogResult = DialogResult.OK;
+                            currentUser = new User() { Login = input_login, Password = password };
+
                         }
                         else
                         {
@@ -79,6 +81,7 @@ namespace ShopStore
                         txtBox_login.BackColor = Color.PaleVioletRed;
                         MessageBox.Show("Incorrect username");
                     }
+                    
                 } //END
 
                 else //Create Acount

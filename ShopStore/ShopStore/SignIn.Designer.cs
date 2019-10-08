@@ -53,7 +53,7 @@
             this.btn_SignIn.TabIndex = 0;
             this.btn_SignIn.Text = "Sign in";
             this.btn_SignIn.UseVisualStyleBackColor = false;
-            this.btn_SignIn.Click += new System.EventHandler(this.btn_SignIn_Click);
+            this.btn_SignIn.Click += new System.EventHandler(this.Btn_SignIn_Click);
             // 
             // contextMenuStrip1
             // 

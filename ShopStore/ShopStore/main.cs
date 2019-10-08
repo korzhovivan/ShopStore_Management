@@ -17,6 +17,7 @@ namespace ShopStore
     {
         public SqlConnection SQL_conection = null;
         public DataContext dc = null;
+        public User currUser = null;
 
         public Main()
         {
@@ -25,11 +26,14 @@ namespace ShopStore
             SQL_conection = new SqlConnection();
             SQL_conection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             dc = new DataContext(SQL_conection);
+
             SignIn signInForm = new SignIn(dc);
             if (signInForm.ShowDialog() == DialogResult.OK)
             {
-                
+                currUser = signInForm.currentUser;
             }
+            linkLable_login.Text = currUser.Login;
+            
         }
     }
 }
