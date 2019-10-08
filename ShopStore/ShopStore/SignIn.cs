@@ -41,7 +41,7 @@ namespace ShopStore
             }
         }
 
-        private async void Btn_SignIn_Click(object sender, EventArgs e)
+        private void Btn_SignIn_Click(object sender, EventArgs e)
         {
             Regex regex = new Regex("^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+){5}$");
 

@@ -35,5 +35,18 @@ namespace ShopStore
             linkLable_login.Text = currUser.Login;
             
         }
+
+        private void btn_SignOut_Click(object sender, EventArgs e)
+        {
+            
+            SignIn signInForm = new SignIn(dc);
+            this.Hide();
+            if (signInForm.ShowDialog() == DialogResult.OK)
+            {
+                currUser = signInForm.currentUser;
+            }
+            linkLable_login.Text = currUser.Login;
+            this.Show();
+        }
     }
 }

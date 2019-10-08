@@ -96,6 +96,7 @@
             this.btn_SignOut.TabIndex = 5;
             this.btn_SignOut.Text = "Sign out";
             this.btn_SignOut.UseVisualStyleBackColor = true;
+            this.btn_SignOut.Click += new System.EventHandler(this.btn_SignOut_Click);
             // 
             // btn_Buy
             // 
