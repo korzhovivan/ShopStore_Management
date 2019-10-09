@@ -34,10 +34,10 @@ namespace ShopStore
                 linkLable_login.Text = currUser.Login;
             }
             dataGridView_Books.DataSource = dc.GetTable<Book>();
-            //dataGridView_Cart.DataSource = from item in dc.GetTable<Book>().Where(i => i == from item in dc.GetTable<CartItem>().GroupBy(i => i.Book_ID).Select(id_book => id_book.Book_ID)).GroupBy(i => i.NameBook).Select(book_name => book_name.NameBook);
+           
             dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
                                            join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
-                                          
+                                           where item2.User_Login == currUser.Login
                                            select item).ToList();
 
             dataGridView_Cart.Columns["ID_BOOK"].Visible = false;
@@ -101,13 +101,24 @@ namespace ShopStore
                 int ID = 0;
                 if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
                 {
-                    
-                }
+                    var deleteObj = from item in dc.GetTable<Book>()
+                                    where item.ID_BOOK == ID
+                                    select item;
+                    foreach (var item in deleteObj)
+                    {
+                        dc.GetTable<Book>().DeleteOnSubmit(item);
+                        dc.SubmitChanges();
+                    }
+                } 
             }
             else
             {
                 MessageBox.Show("Chose one book");
             }
+            dataGridView_Books.DataSource = dc.GetTable<Book>().ToList();
+            dataGridView_Books.Refresh();
+            dataGridView_Books.Update();
+            
         }
 
         private void btn_AddToCart_Click(object sender, EventArgs e)
@@ -125,6 +136,7 @@ namespace ShopStore
 
                     dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
                                                     join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
+                                                    where item2.User_Login == currUser.Login
                                                     select item).ToList();
                     dataGridView_Cart.Refresh();
                     dataGridView_Cart.Update();

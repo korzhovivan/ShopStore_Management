@@ -134,7 +134,7 @@
             this.dataGridView_Cart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView_Cart.Location = new System.Drawing.Point(12, 44);
             this.dataGridView_Cart.Name = "dataGridView_Cart";
-            this.dataGridView_Cart.Size = new System.Drawing.Size(208, 135);
+            this.dataGridView_Cart.Size = new System.Drawing.Size(218, 140);
             this.dataGridView_Cart.TabIndex = 8;
             // 
             // Cart
@@ -152,7 +152,7 @@
             this.pictureBox_Cart.Image = global::ShopStore.Properties.Resources.cart;
             this.pictureBox_Cart.Location = new System.Drawing.Point(122, 5);
             this.pictureBox_Cart.Name = "pictureBox_Cart";
-            this.pictureBox_Cart.Size = new System.Drawing.Size(48, 36);
+            this.pictureBox_Cart.Size = new System.Drawing.Size(38, 36);
             this.pictureBox_Cart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_Cart.TabIndex = 10;
             this.pictureBox_Cart.TabStop = false;
