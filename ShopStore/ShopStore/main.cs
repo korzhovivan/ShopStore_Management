@@ -108,6 +108,10 @@ namespace ShopStore
                     {
                         dc.GetTable<Book>().DeleteOnSubmit(item);
                         dc.SubmitChanges();
+
+                        Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
+                        dc.GetTable<Sale>().InsertOnSubmit(new_sale);
+                        dc.SubmitChanges();
                     }
                 } 
             }
@@ -148,6 +152,40 @@ namespace ShopStore
             }
 
             
+        }
+
+        private void btn_BuyFromCart_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Cart.SelectedRows.Count == 1)
+            {
+                int index = dataGridView_Cart.SelectedRows[0].Index;
+                int ID = 0;
+                if (Int32.TryParse(dataGridView_Cart[0, index].Value.ToString(), out ID))
+                {
+                    var deleteObj = from item in dc.GetTable<Book>()
+                                    where item.ID_BOOK == ID
+                                    select item;
+                    foreach (var item in deleteObj)
+                    {
+                        dc.GetTable<Book>().DeleteOnSubmit(item);
+                        dc.SubmitChanges();
+
+                        Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
+                        dc.GetTable<Sale>().InsertOnSubmit(new_sale);
+                        dc.SubmitChanges();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chose one book");
+            }
+            dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
+                                            join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
+                                            where item2.User_Login == currUser.Login
+                                            select item).ToList();
+            dataGridView_Cart.Refresh();
+            dataGridView_Cart.Update();
         }
     }
 }

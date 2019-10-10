@@ -48,8 +48,8 @@ namespace ShopStore
             string input_login = txtBox_login.Text;
             string input_password = txtBox_password.Text;
 
-            input_login = "korzik";
-            input_password = "123456";
+            //input_login = "korzik";
+            //input_password = "123456";
 
             if (regex.Match(input_login).Success && regex.Match(input_password).Success)
             {

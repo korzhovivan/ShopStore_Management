@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Book.cs" />
     <Compile Include="CartItem.cs" />
+    <Compile Include="Sale.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
