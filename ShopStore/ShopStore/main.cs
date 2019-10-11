@@ -33,6 +33,10 @@ namespace ShopStore
                 currUser = signInForm.currentUser;
                 linkLable_login.Text = currUser.Login;
             }
+            else
+            {
+                return;
+            }
             dataGridView_Books.DataSource = dc.GetTable<Book>();
            
             dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
@@ -91,6 +95,11 @@ namespace ShopStore
             }
             linkLable_login.Text = currUser.Login;
             this.Show();
+            dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
+                                            join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
+                                            where item2.User_Login == currUser.Login
+                                            select item).ToList();
+
         }
 
         private void btn_Buy_Click(object sender, EventArgs e)

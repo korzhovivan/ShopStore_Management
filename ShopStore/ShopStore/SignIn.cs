@@ -48,8 +48,8 @@ namespace ShopStore
             string input_login = txtBox_login.Text;
             string input_password = txtBox_password.Text;
 
-            //input_login = "korzik";
-            //input_password = "123456";
+            input_login = "admin1";
+            input_password = "000000";
 
             if (regex.Match(input_login).Success && regex.Match(input_password).Success)
             {
@@ -58,30 +58,43 @@ namespace ShopStore
 
                 if (signInForm) //SIGN IN
                 {
-                    int corect_login = dataContext.GetTable<User>().Where(user => user.Login == input_login).Count();
-
-                    if (corect_login == 1)
+                    //ADMIN
+                    if (input_login == "admin1" && input_password == "000000")
                     {
-                        var corect_password = dataContext.GetTable<User>().Where(user => user.Login == input_login).Where(user => user.Password == input_password.ToString()).Count();
+                        Admin adminForm = new Admin(dataContext);
 
-                        if (corect_password == 1)
+                        this.Hide();
+                        if (adminForm.ShowDialog() == DialogResult.OK)
                         {
-                            this.DialogResult = DialogResult.OK;
-                            currentUser = new User() { Login = input_login, Password = password };
-
-                        }
-                        else
-                        {
-                            txtBox_password.BackColor = Color.PaleVioletRed;
-                            MessageBox.Show("Incorrect password");
+                            this.Show();
                         }
                     }
                     else
                     {
-                        txtBox_login.BackColor = Color.PaleVioletRed;
-                        MessageBox.Show("Incorrect username");
-                    }
-                    
+                        int corect_login = dataContext.GetTable<User>().Where(user => user.Login == input_login).Count();
+
+                        if (corect_login == 1)
+                        {
+                            var corect_password = dataContext.GetTable<User>().Where(user => user.Login == input_login).Where(user => user.Password == input_password.ToString()).Count();
+
+                            if (corect_password == 1)
+                            {
+                                this.DialogResult = DialogResult.OK;
+                                currentUser = new User() { Login = input_login, Password = password };
+
+                            }
+                            else
+                            {
+                                txtBox_password.BackColor = Color.PaleVioletRed;
+                                MessageBox.Show("Incorrect password");
+                            }
+                        }
+                        else
+                        {
+                            txtBox_login.BackColor = Color.PaleVioletRed;
+                            MessageBox.Show("Incorrect username");
+                        }
+                    }//END
                 } //END
 
                 else //Create Acount
