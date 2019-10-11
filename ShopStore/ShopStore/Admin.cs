@@ -15,19 +15,13 @@ namespace ShopStore
     {
         private DataContext dataContext;
 
-        public Admin()
-        {
-            InitializeComponent();
-
-            dataGridView_Sales.DataSource = dataContext.GetTable<Sale>();
-        }
-
         public Admin(DataContext dataContext)
         {
             this.dataContext = dataContext;
             InitializeComponent();
 
             dataGridView_Sales.DataSource = dataContext.GetTable<Sale>();
+            dataGridView_Books.DataSource = dataContext.GetTable<Book>();
         }
 
         private void btn_LogOut_Click(object sender, EventArgs e)
@@ -38,7 +32,63 @@ namespace ShopStore
         private void btn_Add_Click(object sender, EventArgs e)
         {
             AddForm addForm = new AddForm(dataContext);
-            addForm.ShowDialog();
+            if (addForm.ShowDialog() == DialogResult.OK)
+            {
+                dataGridView_Books.DataSource = dataContext.GetTable<Book>().ToList();
+                dataGridView_Books.Refresh();
+                dataGridView_Books.Update();
+            }
+        }
+
+        private void btn_Edit_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Books.SelectedRows.Count == 1)
+            {
+                int index = dataGridView_Books.SelectedRows[0].Index;
+                int ID = 0;
+                if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
+                {
+                    var editObj = from item in dataContext.GetTable<Book>()
+                                    where item.ID_BOOK == ID
+                                    select item;
+
+                    EditForm editForm = new EditForm(dataContext, editObj);
+                    if (editForm.ShowDialog() == DialogResult.OK)
+                    {
+                        dataGridView_Books.DataSource = dataContext.GetTable<Book>().ToList();
+                        dataGridView_Books.Refresh();
+                        dataGridView_Books.Update();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chose one book");
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Books.SelectedRows.Count == 1)
+            {
+                int index = dataGridView_Books.SelectedRows[0].Index;
+                int ID = 0;
+                if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
+                {
+                    var deleteObj = from item in dataContext.GetTable<Book>()
+                                    where item.ID_BOOK == ID
+                                    select item;
+                    foreach (var item in deleteObj)
+                    {
+                        dataContext.GetTable<Book>().DeleteOnSubmit(item);
+                        dataContext.SubmitChanges();
+                    }
+                }
+            }
+            dataGridView_Books.DataSource = dataContext.GetTable<Book>().ToList();
+            dataGridView_Books.Refresh();
+            dataGridView_Books.Update();
         }
     }
 }
