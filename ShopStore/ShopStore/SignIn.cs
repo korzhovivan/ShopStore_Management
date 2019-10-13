@@ -20,6 +20,9 @@ namespace ShopStore
         public bool signInForm = true;
         public User currentUser = null;
 
+        string admin_login = "admin1";
+        string admin_pass = "admin1";
+
         public SignIn(DataContext dc)
         {
             InitializeComponent();
@@ -27,6 +30,8 @@ namespace ShopStore
             this.FormClosed += SignIn_FormClosed;
             dataContext = dc;
             this.MaximumSize = new System.Drawing.Size(278, 383);
+
+            MessageBox.Show("Admin login: " + admin_login + "\nAdmin password: " +admin_pass);
         }
 
         private void SignIn_FormClosed(object sender, FormClosedEventArgs e)
@@ -48,9 +53,6 @@ namespace ShopStore
             string input_login = txtBox_login.Text;
             string input_password = txtBox_password.Text;
 
-            input_login = "admin1";
-            input_password = "000000";
-
             if (regex.Match(input_login).Success && regex.Match(input_password).Success)
             {
                 txtBox_password.BackColor = Color.White;
@@ -59,7 +61,7 @@ namespace ShopStore
                 if (signInForm) //SIGN IN
                 {
                     //ADMIN
-                    if (input_login == "admin1" && input_password == "000000")
+                    if (input_login == admin_login && input_password == admin_pass)
                     {
                         Admin adminForm = new Admin(dataContext);
 
@@ -83,7 +85,6 @@ namespace ShopStore
 
                             if (corect_password == 1)
                             {
-                                MessageBox.Show("APP");
                                 this.DialogResult = DialogResult.OK;
                                 currentUser = new User() { Login = input_login, Password = password };
 

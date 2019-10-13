@@ -19,6 +19,10 @@ namespace ShopStore
         public DataContext dc = null;
         public User currUser = null;
 
+        //Flags
+        bool buyCart = false;
+        bool buyShop = false;
+
         public Main()
         {
             InitializeComponent();
@@ -58,6 +62,23 @@ namespace ShopStore
             cmbBox_SortBy.Items.Add("Name");
             cmbBox_SortBy.Items.Add("From lowest");
             cmbBox_SortBy.Items.Add("From highest");
+
+            dataGridView_Books.GotFocus += DataGridView_Books_GotFocus;
+            dataGridView_Cart.GotFocus += DataGridView_Cart_GotFocus;
+        }
+
+        private void DataGridView_Cart_GotFocus(object sender, EventArgs e)
+        {
+            dataGridView_Books.ClearSelection();
+            buyCart = true;
+            buyShop = false;
+        }
+
+        private void DataGridView_Books_GotFocus(object sender, EventArgs e)
+        {
+            dataGridView_Cart.ClearSelection();
+            buyShop = true;
+            buyCart = false;
         }
 
         private void CmbBox_SortBy_SelectedIndexChanged(object sender, EventArgs e)
@@ -104,34 +125,73 @@ namespace ShopStore
 
         private void btn_Buy_Click(object sender, EventArgs e)
         {
-            if (dataGridView_Books.SelectedRows.Count == 1)
+            if (buyShop)
             {
-                int index = dataGridView_Books.SelectedRows[0].Index;
-                int ID = 0;
-                if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
+                if (dataGridView_Books.SelectedRows.Count == 1)
                 {
-                    var deleteObj = from item in dc.GetTable<Book>()
-                                    where item.ID_BOOK == ID
-                                    select item;
-                    foreach (var item in deleteObj)
+                    int index = dataGridView_Books.SelectedRows[0].Index;
+                    int ID = 0;
+                    if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
                     {
-                        dc.GetTable<Book>().DeleteOnSubmit(item);
-                        dc.SubmitChanges();
+                        var deleteObj = from item in dc.GetTable<Book>()
+                                        where item.ID_BOOK == ID
+                                        select item;
+                        foreach (var item in deleteObj)
+                        {
+                            dc.GetTable<Book>().DeleteOnSubmit(item);
+                            dc.SubmitChanges();
 
-                        Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
-                        dc.GetTable<Sale>().InsertOnSubmit(new_sale);
-                        dc.SubmitChanges();
+                            Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
+                            dc.GetTable<Sale>().InsertOnSubmit(new_sale);
+                            dc.SubmitChanges();
+                        }
                     }
-                } 
+                }
+                else
+                {
+                    MessageBox.Show("Chose one book");
+                }
+                dataGridView_Books.DataSource = dc.GetTable<Book>().ToList();
+                dataGridView_Books.Refresh();
+                dataGridView_Books.Update();
+            }
+            else if(buyCart)
+            {
+                if (dataGridView_Cart.SelectedRows.Count == 1)
+                {
+                    int index = dataGridView_Cart.SelectedRows[0].Index;
+                    int ID = 0;
+                    if (Int32.TryParse(dataGridView_Cart[0, index].Value.ToString(), out ID))
+                    {
+                        var deleteObj = from item in dc.GetTable<Book>()
+                                        where item.ID_BOOK == ID
+                                        select item;
+                        foreach (var item in deleteObj)
+                        {
+                            dc.GetTable<Book>().DeleteOnSubmit(item);
+                            dc.SubmitChanges();
+
+                            Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
+                            dc.GetTable<Sale>().InsertOnSubmit(new_sale);
+                            dc.SubmitChanges();
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Chose one book");
+                }
+                dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
+                                                join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
+                                                where item2.User_Login == currUser.Login
+                                                select item).ToList();
+                dataGridView_Cart.Refresh();
+                dataGridView_Cart.Update();
             }
             else
-            {
+	        {
                 MessageBox.Show("Chose one book");
             }
-            dataGridView_Books.DataSource = dc.GetTable<Book>().ToList();
-            dataGridView_Books.Refresh();
-            dataGridView_Books.Update();
-            
         }
 
         private void btn_AddToCart_Click(object sender, EventArgs e)
@@ -159,42 +219,6 @@ namespace ShopStore
             {
                 MessageBox.Show("Chose one book");
             }
-
-            
-        }
-
-        private void btn_BuyFromCart_Click(object sender, EventArgs e)
-        {
-            if (dataGridView_Cart.SelectedRows.Count == 1)
-            {
-                int index = dataGridView_Cart.SelectedRows[0].Index;
-                int ID = 0;
-                if (Int32.TryParse(dataGridView_Cart[0, index].Value.ToString(), out ID))
-                {
-                    var deleteObj = from item in dc.GetTable<Book>()
-                                    where item.ID_BOOK == ID
-                                    select item;
-                    foreach (var item in deleteObj)
-                    {
-                        dc.GetTable<Book>().DeleteOnSubmit(item);
-                        dc.SubmitChanges();
-
-                        Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
-                        dc.GetTable<Sale>().InsertOnSubmit(new_sale);
-                        dc.SubmitChanges();
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("Chose one book");
-            }
-            dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
-                                            join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
-                                            where item2.User_Login == currUser.Login
-                                            select item).ToList();
-            dataGridView_Cart.Refresh();
-            dataGridView_Cart.Update();
         }
     }
 }

@@ -40,7 +40,6 @@
             this.dataGridView_Cart = new System.Windows.Forms.DataGridView();
             this.Cart = new System.Windows.Forms.Label();
             this.pictureBox_Cart = new System.Windows.Forms.PictureBox();
-            this.btn_BuyFromCart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Books)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Cart)).BeginInit();
@@ -158,25 +157,11 @@
             this.pictureBox_Cart.TabIndex = 10;
             this.pictureBox_Cart.TabStop = false;
             // 
-            // btn_BuyFromCart
-            // 
-            this.btn_BuyFromCart.BackColor = System.Drawing.Color.Green;
-            this.btn_BuyFromCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btn_BuyFromCart.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_BuyFromCart.Location = new System.Drawing.Point(236, 44);
-            this.btn_BuyFromCart.Name = "btn_BuyFromCart";
-            this.btn_BuyFromCart.Size = new System.Drawing.Size(135, 40);
-            this.btn_BuyFromCart.TabIndex = 11;
-            this.btn_BuyFromCart.Text = "Buy";
-            this.btn_BuyFromCart.UseVisualStyleBackColor = false;
-            this.btn_BuyFromCart.Click += new System.EventHandler(this.btn_BuyFromCart_Click);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(922, 558);
-            this.Controls.Add(this.btn_BuyFromCart);
             this.Controls.Add(this.pictureBox_Cart);
             this.Controls.Add(this.Cart);
             this.Controls.Add(this.dataGridView_Cart);
@@ -212,7 +197,6 @@
         private System.Windows.Forms.DataGridView dataGridView_Cart;
         private System.Windows.Forms.Label Cart;
         private System.Windows.Forms.PictureBox pictureBox_Cart;
-        private System.Windows.Forms.Button btn_BuyFromCart;
     }
 }
 
