@@ -68,6 +68,10 @@ namespace ShopStore
                         {
                             this.Show();
                         }
+                        else
+                        {
+                            Application.Exit();
+                        }
                     }
                     else
                     {
@@ -79,6 +83,7 @@ namespace ShopStore
 
                             if (corect_password == 1)
                             {
+                                MessageBox.Show("APP");
                                 this.DialogResult = DialogResult.OK;
                                 currentUser = new User() { Login = input_login, Password = password };
 
