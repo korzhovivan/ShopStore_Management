@@ -12,10 +12,10 @@ namespace ShopStore
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Cart
     {
         public int Id { get; set; }
-        public string Login { get; set; }
-        public string Password { get; set; }
+        public string User_Login { get; set; }
+        public int Book_ID { get; set; }
     }
 }

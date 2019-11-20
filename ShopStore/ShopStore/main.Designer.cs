@@ -38,7 +38,6 @@
             this.btn_Buy = new System.Windows.Forms.Button();
             this.btn_AddToCart = new System.Windows.Forms.Button();
             this.dataGridView_Cart = new System.Windows.Forms.DataGridView();
-            this.Cart = new System.Windows.Forms.Label();
             this.pictureBox_Cart = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Books)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cart)).BeginInit();
@@ -136,26 +135,18 @@
             this.dataGridView_Cart.Name = "dataGridView_Cart";
             this.dataGridView_Cart.Size = new System.Drawing.Size(218, 140);
             this.dataGridView_Cart.TabIndex = 8;
-            // 
-            // Cart
-            // 
-            this.Cart.AutoSize = true;
-            this.Cart.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Cart.Location = new System.Drawing.Point(44, 2);
-            this.Cart.Name = "Cart";
-            this.Cart.Size = new System.Drawing.Size(83, 39);
-            this.Cart.TabIndex = 9;
-            this.Cart.Text = "Cart";
+            this.dataGridView_Cart.Visible = false;
             // 
             // pictureBox_Cart
             // 
             this.pictureBox_Cart.Image = global::ShopStore.Properties.Resources.cart;
-            this.pictureBox_Cart.Location = new System.Drawing.Point(122, 5);
+            this.pictureBox_Cart.Location = new System.Drawing.Point(15, 5);
             this.pictureBox_Cart.Name = "pictureBox_Cart";
             this.pictureBox_Cart.Size = new System.Drawing.Size(38, 36);
             this.pictureBox_Cart.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_Cart.TabIndex = 10;
             this.pictureBox_Cart.TabStop = false;
+            this.pictureBox_Cart.Click += new System.EventHandler(this.pictureBox_Cart_Click);
             // 
             // Main
             // 
@@ -163,7 +154,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(922, 558);
             this.Controls.Add(this.pictureBox_Cart);
-            this.Controls.Add(this.Cart);
             this.Controls.Add(this.dataGridView_Cart);
             this.Controls.Add(this.btn_AddToCart);
             this.Controls.Add(this.btn_Buy);
@@ -195,7 +185,6 @@
         private System.Windows.Forms.Button btn_Buy;
         private System.Windows.Forms.Button btn_AddToCart;
         private System.Windows.Forms.DataGridView dataGridView_Cart;
-        private System.Windows.Forms.Label Cart;
         private System.Windows.Forms.PictureBox pictureBox_Cart;
     }
 }

@@ -13,15 +13,12 @@ namespace ShopStore
 {
     public partial class Admin : Form
     {
-        private DataContext dataContext;
+        BookStoreEntities db = null;
 
-        public Admin(DataContext dataContext)
+        public Admin()
         {
-            this.dataContext = dataContext;
             InitializeComponent();
-
-            dataGridView_Sales.DataSource = dataContext.GetTable<Sale>();
-            dataGridView_Books.DataSource = dataContext.GetTable<Book>();
+            db = new BookStoreEntities();
         }
 
         private void btn_LogOut_Click(object sender, EventArgs e)

@@ -65,7 +65,7 @@
             this.pictureBox_logo.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox_logo.Image")));
             this.pictureBox_logo.Location = new System.Drawing.Point(12, 2);
             this.pictureBox_logo.Name = "pictureBox_logo";
-            this.pictureBox_logo.Size = new System.Drawing.Size(237, 125);
+            this.pictureBox_logo.Size = new System.Drawing.Size(214, 123);
             this.pictureBox_logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox_logo.TabIndex = 2;
             this.pictureBox_logo.TabStop = false;
@@ -87,6 +87,7 @@
             this.txtBox_login.Name = "txtBox_login";
             this.txtBox_login.Size = new System.Drawing.Size(209, 31);
             this.txtBox_login.TabIndex = 4;
+            this.txtBox_login.Text = "korzik";
             // 
             // txtBox_password
             // 
@@ -95,6 +96,7 @@
             this.txtBox_password.Name = "txtBox_password";
             this.txtBox_password.Size = new System.Drawing.Size(209, 31);
             this.txtBox_password.TabIndex = 6;
+            this.txtBox_password.Text = "123456";
             // 
             // label2
             // 
@@ -130,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(262, 344);
+            this.ClientSize = new System.Drawing.Size(232, 344);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.txtBox_password);

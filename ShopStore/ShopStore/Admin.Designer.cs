@@ -33,6 +33,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridView_Sales = new System.Windows.Forms.DataGridView();
@@ -42,11 +45,13 @@
             this.btn_Add = new System.Windows.Forms.Button();
             this.dataGridView_Books = new System.Windows.Forms.DataGridView();
             this.btn_LogOut = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Sales)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Books)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -62,6 +67,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.chart1);
             this.tabPage1.Controls.Add(this.dataGridView_Sales);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -90,10 +96,9 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView_Sales.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView_Sales.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView_Sales.Location = new System.Drawing.Point(3, 3);
             this.dataGridView_Sales.Name = "dataGridView_Sales";
-            this.dataGridView_Sales.Size = new System.Drawing.Size(786, 467);
+            this.dataGridView_Sales.Size = new System.Drawing.Size(786, 205);
             this.dataGridView_Sales.TabIndex = 0;
             // 
             // tabPage2
@@ -190,6 +195,25 @@
             this.btn_LogOut.UseVisualStyleBackColor = false;
             this.btn_LogOut.Click += new System.EventHandler(this.btn_LogOut_Click);
             // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(6, 214);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.MarkerSize = 10;
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(786, 251);
+            this.chart1.TabIndex = 1;
+            this.chart1.Text = "chart1";
+            // 
             // Admin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -205,6 +229,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Sales)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Books)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -220,5 +245,6 @@
         private System.Windows.Forms.Button btn_Edit;
         private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.DataGridView dataGridView_Books;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

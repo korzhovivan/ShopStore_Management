@@ -2,36 +2,36 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Linq;
-using System.Data.Linq.Mapping;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Entity;
+using System.Data.Linq;
+using System.Text.RegularExpressions;
 
 namespace ShopStore
 {
     public partial class SignIn : Form
     {
         public string password = null;
-        public DataContext dataContext = null;
         public bool signInForm = true;
         public User currentUser = null;
+
+        BookStoreEntities db = null;
 
         string admin_login = "admin1";
         string admin_pass = "admin1";
 
-        public SignIn(DataContext dc)
+        public SignIn()
         {
             InitializeComponent();
             txtBox_password.PasswordChar = '*';
             this.FormClosed += SignIn_FormClosed;
-            dataContext = dc;
-            this.MaximumSize = new System.Drawing.Size(278, 383);
-
-            MessageBox.Show("Admin login: " + admin_login + "\nAdmin password: " +admin_pass);
+            db = new BookStoreEntities();
+            this.MaximumSize = new System.Drawing.Size(255, 383);
+            this.MinimumSize = new System.Drawing.Size(255, 383);
         }
 
         private void SignIn_FormClosed(object sender, FormClosedEventArgs e)
@@ -63,7 +63,7 @@ namespace ShopStore
                     //ADMIN
                     if (input_login == admin_login && input_password == admin_pass)
                     {
-                        Admin adminForm = new Admin(dataContext);
+                        Admin adminForm = new Admin();
 
                         this.Hide();
                         if (adminForm.ShowDialog() == DialogResult.OK)
@@ -77,11 +77,11 @@ namespace ShopStore
                     }
                     else
                     {
-                        int corect_login = dataContext.GetTable<User>().Where(user => user.Login == input_login).Count();
+                        int corect_login = db.Users.Where(user => user.Login == input_login).Count();
 
                         if (corect_login == 1)
                         {
-                            var corect_password = dataContext.GetTable<User>().Where(user => user.Login == input_login).Where(user => user.Password == input_password.ToString()).Count();
+                            var corect_password = db.Users.Where(user => user.Login == input_login).Where(user => user.Password == input_password.ToString()).Count();
 
                             if (corect_password == 1)
                             {
@@ -105,10 +105,13 @@ namespace ShopStore
 
                 else //Create Acount
                 {
-                    User new_user = new User() { Login = txtBox_login.Text, Password = txtBox_password.Text };
-                    dataContext.GetTable<User>().InsertOnSubmit(new_user);
-                    dataContext.SubmitChanges();
-                    MessageBox.Show("Created new user");
+                    using (BookStoreEntities db = new BookStoreEntities())
+                    {
+                        User newUser = new User() { Login = txtBox_login.Text, Password = txtBox_password.Text };
+                        db.Users.Add(newUser);
+                        db.SaveChanges();
+                        MessageBox.Show("Created new user");
+                    } 
                 }//End 
             }
             else
@@ -136,7 +139,6 @@ namespace ShopStore
                 SignInState();
                 signInForm = true;
             }
-            
         }
         public void RegistarionState()
         {

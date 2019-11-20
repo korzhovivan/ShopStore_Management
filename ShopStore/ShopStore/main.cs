@@ -15,8 +15,7 @@ namespace ShopStore
 {
     public partial class Main : Form
     {
-        public SqlConnection SQL_conection = null;
-        public DataContext dc = null;
+        BookStoreEntities db = null;
         public User currUser = null;
 
         //Flags
@@ -26,12 +25,17 @@ namespace ShopStore
         public Main()
         {
             InitializeComponent();
+            
+            this.MinimumSize = new System.Drawing.Size(938, 597); ;
+            this.MaximumSize = new System.Drawing.Size(938, 597); ;
 
-            SQL_conection = new SqlConnection();
-            SQL_conection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            dc = new DataContext(SQL_conection);
+            //SQL_conection = new SqlConnection();
+            //SQL_conection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            //dc = new DataContext(SQL_conection);
 
-            SignIn signInForm = new SignIn(dc);
+            db = new BookStoreEntities();
+
+            SignIn signInForm = new SignIn();
             if (signInForm.ShowDialog() == DialogResult.OK)
             {
                 currUser = signInForm.currentUser;
@@ -41,10 +45,10 @@ namespace ShopStore
             {
                 return;
             }
-            dataGridView_Books.DataSource = dc.GetTable<Book>();
+            dataGridView_Books.DataSource = db.Books.ToList();
            
-            dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
-                                           join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
+            dataGridView_Cart.DataSource = (from item in db.Books
+                                           join item2 in db.Carts on item.ID_BOOK equals item2.Book_ID
                                            where item2.User_Login == currUser.Login
                                            select item).ToList();
 
@@ -87,19 +91,19 @@ namespace ShopStore
 
             switch (filter)
             {
-                case 0: dataGridView_Books.DataSource = dc.GetTable<Book>().OrderBy(sort => sort.DateOfPublishing);
+                case 0: dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.DateOfPublishing);
                     break;
                 case 1:
-                    dataGridView_Books.DataSource = dc.GetTable<Book>().OrderByDescending(sort => sort.DateOfPublishing);
+                    dataGridView_Books.DataSource = db.Books.OrderByDescending(sort => sort.DateOfPublishing);
                     break;
                 case 2:
-                    dataGridView_Books.DataSource = dc.GetTable<Book>().OrderBy(sort => sort.NameBook);
+                    dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.NameBook);
                     break;
                 case 3:
-                    dataGridView_Books.DataSource = dc.GetTable<Book>().OrderBy(sort => sort.Price);
+                    dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.Price);
                     break;
                 case 4:
-                    dataGridView_Books.DataSource = dc.GetTable<Book>().OrderByDescending(sort => sort.Price);
+                    dataGridView_Books.DataSource = db.Books.OrderByDescending(sort => sort.Price);
                     break;
 
             }
@@ -108,7 +112,7 @@ namespace ShopStore
         private void btn_SignOut_Click(object sender, EventArgs e)
         {
             
-            SignIn signInForm = new SignIn(dc);
+            SignIn signInForm = new SignIn();
             this.Hide();
             if (signInForm.ShowDialog() == DialogResult.OK)
             {
@@ -116,8 +120,8 @@ namespace ShopStore
             }
             linkLable_login.Text = currUser.Login;
             this.Show();
-            dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
-                                            join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
+            dataGridView_Cart.DataSource = (from item in db.Books
+                                            join item2 in db.Carts on item.ID_BOOK equals item2.Book_ID
                                             where item2.User_Login == currUser.Login
                                             select item).ToList();
 
@@ -133,17 +137,17 @@ namespace ShopStore
                     int ID = 0;
                     if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
                     {
-                        var deleteObj = from item in dc.GetTable<Book>()
+                        var deleteObj = from item in db.Books
                                         where item.ID_BOOK == ID
                                         select item;
                         foreach (var item in deleteObj)
                         {
-                            dc.GetTable<Book>().DeleteOnSubmit(item);
-                            dc.SubmitChanges();
+                            db.Books.Remove(item);
+                            db.SaveChanges();
 
                             Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
-                            dc.GetTable<Sale>().InsertOnSubmit(new_sale);
-                            dc.SubmitChanges();
+                            db.Sales.Add(new_sale);
+                            db.SaveChanges();
                         }
                     }
                 }
@@ -151,7 +155,7 @@ namespace ShopStore
                 {
                     MessageBox.Show("Chose one book");
                 }
-                dataGridView_Books.DataSource = dc.GetTable<Book>().ToList();
+                dataGridView_Books.DataSource = db.Books.ToList();
                 dataGridView_Books.Refresh();
                 dataGridView_Books.Update();
             }
@@ -163,17 +167,17 @@ namespace ShopStore
                     int ID = 0;
                     if (Int32.TryParse(dataGridView_Cart[0, index].Value.ToString(), out ID))
                     {
-                        var deleteObj = from item in dc.GetTable<Book>()
+                        var deleteObj = from item in db.Books
                                         where item.ID_BOOK == ID
                                         select item;
                         foreach (var item in deleteObj)
                         {
-                            dc.GetTable<Book>().DeleteOnSubmit(item);
-                            dc.SubmitChanges();
+                            db.Books.Remove(item);
+                            db.SaveChanges();
 
                             Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
-                            dc.GetTable<Sale>().InsertOnSubmit(new_sale);
-                            dc.SubmitChanges();
+                            db.Sales.Add(new_sale);
+                            db.SaveChanges();
                         }
                     }
                 }
@@ -181,8 +185,8 @@ namespace ShopStore
                 {
                     MessageBox.Show("Chose one book");
                 }
-                dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
-                                                join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
+                dataGridView_Cart.DataSource = (from item in db.Books
+                                                join item2 in db.Carts on item.ID_BOOK equals item2.Book_ID
                                                 where item2.User_Login == currUser.Login
                                                 select item).ToList();
                 dataGridView_Cart.Refresh();
@@ -202,13 +206,13 @@ namespace ShopStore
                 int ID = 0;
                 if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
                 {
-                    CartItem cartItem = new CartItem() { Book_ID = ID,User_Login = currUser.Login};
-                    dc.GetTable<CartItem>().InsertOnSubmit(cartItem);
-                    dc.SubmitChanges();
+                    Cart cartItem = new Cart() { Book_ID = ID,User_Login = currUser.Login};
+                    db.Carts.Add(cartItem);
+                    db.SaveChanges();
 
 
-                    dataGridView_Cart.DataSource = (from item in dc.GetTable<Book>()
-                                                    join item2 in dc.GetTable<CartItem>() on item.ID_BOOK equals item2.Book_ID
+                    dataGridView_Cart.DataSource = (from item in db.Books
+                                                    join item2 in db.Carts on item.ID_BOOK equals item2.Book_ID
                                                     where item2.User_Login == currUser.Login
                                                     select item).ToList();
                     dataGridView_Cart.Refresh();
@@ -219,6 +223,19 @@ namespace ShopStore
             {
                 MessageBox.Show("Chose one book");
             }
+        }
+
+        private void pictureBox_Cart_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Cart.Visible)
+            {
+                dataGridView_Cart.Visible = false;
+            }
+            else
+            {
+                dataGridView_Cart.Visible = true;
+            }
+            
         }
     }
 }
