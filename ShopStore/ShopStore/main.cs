@@ -91,19 +91,19 @@ namespace ShopStore
 
             switch (filter)
             {
-                case 0: dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.DateOfPublishing);
+                case 0: dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.DateOfPublishing).ToList();
                     break;
                 case 1:
-                    dataGridView_Books.DataSource = db.Books.OrderByDescending(sort => sort.DateOfPublishing);
+                    dataGridView_Books.DataSource = db.Books.OrderByDescending(sort => sort.DateOfPublishing).ToList();
                     break;
                 case 2:
-                    dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.NameBook);
+                    dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.NameBook).ToList();
                     break;
                 case 3:
-                    dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.Price);
+                    dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.Price).ToList();
                     break;
                 case 4:
-                    dataGridView_Books.DataSource = db.Books.OrderByDescending(sort => sort.Price);
+                    dataGridView_Books.DataSource = db.Books.OrderByDescending(sort => sort.Price).ToList();
                     break;
 
             }
@@ -143,12 +143,13 @@ namespace ShopStore
                         foreach (var item in deleteObj)
                         {
                             db.Books.Remove(item);
-                            db.SaveChanges();
+                            
 
                             Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
                             db.Sales.Add(new_sale);
-                            db.SaveChanges();
+                           
                         }
+                        db.SaveChanges();
                     }
                 }
                 else
@@ -173,12 +174,11 @@ namespace ShopStore
                         foreach (var item in deleteObj)
                         {
                             db.Books.Remove(item);
-                            db.SaveChanges();
 
                             Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
                             db.Sales.Add(new_sale);
-                            db.SaveChanges();
                         }
+                        db.SaveChanges();
                     }
                 }
                 else

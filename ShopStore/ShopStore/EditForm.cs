@@ -13,32 +13,24 @@ namespace ShopStore
 {
     public partial class EditForm : Form
     {
-        private DataContext dataContext;
-        private IQueryable<Book> editObj;
-        private Book editBook;
-
-        public EditForm(DataContext dataContext, IQueryable<Book> editObj)
+        BookStoreEntities db = null;
+        public Book editBook = null;
+        public EditForm(Book editObj)
         {
             InitializeComponent();
+            db = new BookStoreEntities();
 
-            this.dataContext = dataContext;
-            this.editObj = editObj;
+            editBook = editObj;
 
-            foreach (var item in editObj)
-            {
-                editBook = item;
-                txtBox_Fio.Text = editBook.Fio;
-                txtBox_PublishName.Text = editBook.PublishName;
-                txtBox_BookName.Text = editBook.NameBook;
-                txtBox_Price.Text = editBook.Price.ToString();
-                txtBox_Pages.Text = editBook.Pages.ToString();
-                txtBox_SalePrice.Text = editBook.SalePrice.ToString();
-                dateTimePicker.Value = editBook.DateOfPublishing;
-            }
+            txtBox_Fio.Text = editBook.Fio;
+            txtBox_PublishName.Text = editBook.PublishName;
+            txtBox_BookName.Text = editBook.NameBook;
+            txtBox_Price.Text = editBook.Price.ToString();
+            txtBox_Pages.Text = editBook.Pages.ToString();
+            txtBox_SalePrice.Text = editBook.SalePrice.ToString();
+            dateTimePicker.Value = editBook.DateOfPublishing;
+            
         }
-
-     
-
         private void btn_Edit_Click_1(object sender, EventArgs e)
         {
             editBook.DateOfPublishing = dateTimePicker.Value.Date;
@@ -49,7 +41,19 @@ namespace ShopStore
             editBook.PublishName = txtBox_PublishName.Text;
             editBook.Fio = txtBox_Fio.Text;
 
-            dataContext.SubmitChanges();
+            //Book newBook = new Book()
+            //{
+            //    DateOfPublishing = dateTimePicker.Value.Date,
+            //    NameBook = txtBox_BookName.Text,
+            //    Pages = Convert.ToInt32(txtBox_Pages.Text),
+            //    Price = Convert.ToDecimal(txtBox_Price.Text),
+            //    SalePrice = Convert.ToDecimal(txtBox_SalePrice.Text),
+            //    PublishName = txtBox_PublishName.Text,
+            //    Fio = txtBox_Fio.Text
+            //};
+
+            //editBook = newBook;
+            
             this.DialogResult = DialogResult.OK;
         }
     }

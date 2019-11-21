@@ -13,12 +13,12 @@ namespace ShopStore
 {
     public partial class AddForm : Form
     {
-        private DataContext dataContext;
+        BookStoreEntities db = null;
 
-        public AddForm(DataContext dataContext)
+        public AddForm()
         {
             InitializeComponent();
-            this.dataContext = dataContext;
+            db = new BookStoreEntities();
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
@@ -33,8 +33,8 @@ namespace ShopStore
                 SalePrice = Convert.ToInt32(txtBox_SalePrice.Text),
                 DateOfPublishing =  dateTimePicker.Value.Date
             };
-            dataContext.GetTable<Book>().InsertOnSubmit(new_bok);
-            dataContext.SubmitChanges();
+            db.Books.Add(new_bok);
+            db.SaveChanges();
             this.DialogResult = DialogResult.OK;
         }
     }
