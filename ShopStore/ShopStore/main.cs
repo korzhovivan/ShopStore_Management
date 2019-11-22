@@ -21,11 +21,11 @@ namespace ShopStore
         //Flags
         bool buyCart = false;
         bool buyShop = false;
-
+        
         public Main()
         {
             InitializeComponent();
-            
+
             this.MinimumSize = new System.Drawing.Size(938, 597); ;
             this.MaximumSize = new System.Drawing.Size(938, 597); ;
 
@@ -46,11 +46,11 @@ namespace ShopStore
                 return;
             }
             dataGridView_Books.DataSource = db.Books.ToList();
-           
+
             dataGridView_Cart.DataSource = (from item in db.Books
-                                           join item2 in db.Carts on item.ID_BOOK equals item2.Book_ID
-                                           where item2.User_Login == currUser.Login
-                                           select item).ToList();
+                                            join item2 in db.Carts on item.ID_BOOK equals item2.Book_ID
+                                            where item2.User_Login == currUser.Login
+                                            select item).ToList();
 
             dataGridView_Cart.Columns["ID_BOOK"].Visible = false;
             dataGridView_Cart.Columns["Fio"].Visible = false;
@@ -69,6 +69,8 @@ namespace ShopStore
 
             dataGridView_Books.GotFocus += DataGridView_Books_GotFocus;
             dataGridView_Cart.GotFocus += DataGridView_Cart_GotFocus;
+
+
         }
 
         private void DataGridView_Cart_GotFocus(object sender, EventArgs e)
@@ -76,6 +78,11 @@ namespace ShopStore
             dataGridView_Books.ClearSelection();
             buyCart = true;
             buyShop = false;
+
+            txtBox_City.Text = "";
+            txtBox_Phone.Text = "";
+            txtBox_Post.Text = "";
+
         }
 
         private void DataGridView_Books_GotFocus(object sender, EventArgs e)
@@ -83,6 +90,10 @@ namespace ShopStore
             dataGridView_Cart.ClearSelection();
             buyShop = true;
             buyCart = false;
+            groupBox1.Visible = false;
+            txtBox_City.Text = "";
+            txtBox_Phone.Text = "";
+            txtBox_Post.Text = "";
         }
 
         private void CmbBox_SortBy_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,7 +102,8 @@ namespace ShopStore
 
             switch (filter)
             {
-                case 0: dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.DateOfPublishing).ToList();
+                case 0:
+                    dataGridView_Books.DataSource = db.Books.OrderBy(sort => sort.DateOfPublishing).ToList();
                     break;
                 case 1:
                     dataGridView_Books.DataSource = db.Books.OrderByDescending(sort => sort.DateOfPublishing).ToList();
@@ -111,7 +123,7 @@ namespace ShopStore
 
         private void btn_SignOut_Click(object sender, EventArgs e)
         {
-            
+
             SignIn signInForm = new SignIn();
             this.Hide();
             if (signInForm.ShowDialog() == DialogResult.OK)
@@ -129,6 +141,7 @@ namespace ShopStore
 
         private void btn_Buy_Click(object sender, EventArgs e)
         {
+
             if (buyShop)
             {
                 if (dataGridView_Books.SelectedRows.Count == 1)
@@ -143,11 +156,9 @@ namespace ShopStore
                         foreach (var item in deleteObj)
                         {
                             db.Books.Remove(item);
-                            
 
                             Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
                             db.Sales.Add(new_sale);
-                           
                         }
                         db.SaveChanges();
                     }
@@ -160,7 +171,7 @@ namespace ShopStore
                 dataGridView_Books.Refresh();
                 dataGridView_Books.Update();
             }
-            else if(buyCart)
+            else if (buyCart)
             {
                 if (dataGridView_Cart.SelectedRows.Count == 1)
                 {
@@ -193,12 +204,23 @@ namespace ShopStore
                 dataGridView_Cart.Update();
             }
             else
-	        {
+            {
                 MessageBox.Show("Chose one book");
             }
         }
+        private void pictureBox_Cart_Click(object sender, EventArgs e)
+        {
+            if (dataGridView_Cart.Visible)
+            {
+                dataGridView_Cart.Visible = false;
+            }
+            else
+            {
+                dataGridView_Cart.Visible = true;
+            }
 
-        private void btn_AddToCart_Click(object sender, EventArgs e)
+        }
+        void btn_AddToCart_Click(object sender, EventArgs e)
         {
             if (dataGridView_Books.SelectedRows.Count == 1)
             {
@@ -206,7 +228,7 @@ namespace ShopStore
                 int ID = 0;
                 if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
                 {
-                    Cart cartItem = new Cart() { Book_ID = ID,User_Login = currUser.Login};
+                    Cart cartItem = new Cart() { Book_ID = ID, User_Login = currUser.Login };
                     db.Carts.Add(cartItem);
                     db.SaveChanges();
 
@@ -224,18 +246,5 @@ namespace ShopStore
                 MessageBox.Show("Chose one book");
             }
         }
-
-        private void pictureBox_Cart_Click(object sender, EventArgs e)
-        {
-            if (dataGridView_Cart.Visible)
-            {
-                dataGridView_Cart.Visible = false;
-            }
-            else
-            {
-                dataGridView_Cart.Visible = true;
-            }
-            
-        }
     }
-}
+} 

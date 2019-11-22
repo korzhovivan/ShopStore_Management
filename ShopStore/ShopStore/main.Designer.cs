@@ -39,9 +39,20 @@
             this.btn_AddToCart = new System.Windows.Forms.Button();
             this.dataGridView_Cart = new System.Windows.Forms.DataGridView();
             this.pictureBox_Cart = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbl_BookForBuy = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtBox_City = new System.Windows.Forms.TextBox();
+            this.txtBox_Post = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lbl_Price = new System.Windows.Forms.Label();
+            this.txtBox_Phone = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Books)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Cart)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -148,11 +159,117 @@
             this.pictureBox_Cart.TabStop = false;
             this.pictureBox_Cart.Click += new System.EventHandler(this.pictureBox_Cart_Click);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.Silver;
+            this.groupBox1.Controls.Add(this.txtBox_Phone);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.lbl_Price);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.txtBox_Post);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtBox_City);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.lbl_BookForBuy);
+            this.groupBox1.Location = new System.Drawing.Point(249, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(478, 178);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Checkout";
+            this.groupBox1.Visible = false;
+            // 
+            // lbl_BookForBuy
+            // 
+            this.lbl_BookForBuy.AutoSize = true;
+            this.lbl_BookForBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_BookForBuy.Location = new System.Drawing.Point(247, 101);
+            this.lbl_BookForBuy.Name = "lbl_BookForBuy";
+            this.lbl_BookForBuy.Size = new System.Drawing.Size(57, 20);
+            this.lbl_BookForBuy.TabIndex = 0;
+            this.lbl_BookForBuy.Text = "label3";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(2, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "City";
+            // 
+            // txtBox_City
+            // 
+            this.txtBox_City.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtBox_City.Location = new System.Drawing.Point(6, 40);
+            this.txtBox_City.Name = "txtBox_City";
+            this.txtBox_City.Size = new System.Drawing.Size(193, 26);
+            this.txtBox_City.TabIndex = 2;
+            // 
+            // txtBox_Post
+            // 
+            this.txtBox_Post.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtBox_Post.Location = new System.Drawing.Point(10, 92);
+            this.txtBox_Post.Name = "txtBox_Post";
+            this.txtBox_Post.Size = new System.Drawing.Size(193, 26);
+            this.txtBox_Post.TabIndex = 4;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Location = new System.Drawing.Point(6, 69);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(160, 20);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Post office number";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label5.Location = new System.Drawing.Point(245, 132);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 31);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Price: ";
+            // 
+            // lbl_Price
+            // 
+            this.lbl_Price.AutoSize = true;
+            this.lbl_Price.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_Price.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.lbl_Price.Location = new System.Drawing.Point(312, 101);
+            this.lbl_Price.Name = "lbl_Price";
+            this.lbl_Price.Size = new System.Drawing.Size(0, 31);
+            this.lbl_Price.TabIndex = 6;
+            // 
+            // txtBox_Phone
+            // 
+            this.txtBox_Phone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtBox_Phone.Location = new System.Drawing.Point(10, 144);
+            this.txtBox_Phone.Name = "txtBox_Phone";
+            this.txtBox_Phone.Size = new System.Drawing.Size(193, 26);
+            this.txtBox_Phone.TabIndex = 8;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(6, 121);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 20);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Phone number";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(922, 558);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox_Cart);
             this.Controls.Add(this.dataGridView_Cart);
             this.Controls.Add(this.btn_AddToCart);
@@ -169,6 +286,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Books)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Cart)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,6 +305,16 @@
         private System.Windows.Forms.Button btn_AddToCart;
         private System.Windows.Forms.DataGridView dataGridView_Cart;
         private System.Windows.Forms.PictureBox pictureBox_Cart;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label lbl_Price;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtBox_Post;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtBox_City;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lbl_BookForBuy;
+        private System.Windows.Forms.TextBox txtBox_Phone;
+        private System.Windows.Forms.Label label6;
     }
 }
 
