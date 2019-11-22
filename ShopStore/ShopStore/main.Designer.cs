@@ -40,15 +40,16 @@
             this.dataGridView_Cart = new System.Windows.Forms.DataGridView();
             this.pictureBox_Cart = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lbl_BookForBuy = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtBox_City = new System.Windows.Forms.TextBox();
-            this.txtBox_Post = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.lbl_Price = new System.Windows.Forms.Label();
             this.txtBox_Phone = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.lbl_Price = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtBox_Post = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtBox_City = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lbl_BookForBuy = new System.Windows.Forms.Label();
+            this.btn_MakeOrder = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Books)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_Cart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Cart)).BeginInit();
@@ -83,6 +84,7 @@
             this.dataGridView_Books.Name = "dataGridView_Books";
             this.dataGridView_Books.Size = new System.Drawing.Size(895, 304);
             this.dataGridView_Books.TabIndex = 2;
+            
             // 
             // cmbBox_SortBy
             // 
@@ -118,12 +120,13 @@
             this.btn_Buy.BackColor = System.Drawing.Color.Green;
             this.btn_Buy.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btn_Buy.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_Buy.Location = new System.Drawing.Point(592, 196);
+            this.btn_Buy.Location = new System.Drawing.Point(591, 196);
             this.btn_Buy.Name = "btn_Buy";
             this.btn_Buy.Size = new System.Drawing.Size(135, 40);
             this.btn_Buy.TabIndex = 6;
             this.btn_Buy.Text = "Buy";
             this.btn_Buy.UseVisualStyleBackColor = false;
+            this.btn_Buy.Visible = false;
             this.btn_Buy.Click += new System.EventHandler(this.btn_Buy_Click);
             // 
             // btn_AddToCart
@@ -179,33 +182,44 @@
             this.groupBox1.Text = "Checkout";
             this.groupBox1.Visible = false;
             // 
-            // lbl_BookForBuy
+            // txtBox_Phone
             // 
-            this.lbl_BookForBuy.AutoSize = true;
-            this.lbl_BookForBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbl_BookForBuy.Location = new System.Drawing.Point(247, 101);
-            this.lbl_BookForBuy.Name = "lbl_BookForBuy";
-            this.lbl_BookForBuy.Size = new System.Drawing.Size(57, 20);
-            this.lbl_BookForBuy.TabIndex = 0;
-            this.lbl_BookForBuy.Text = "label3";
+            this.txtBox_Phone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtBox_Phone.Location = new System.Drawing.Point(10, 144);
+            this.txtBox_Phone.Name = "txtBox_Phone";
+            this.txtBox_Phone.Size = new System.Drawing.Size(193, 26);
+            this.txtBox_Phone.TabIndex = 8;
             // 
-            // label3
+            // label6
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(2, 17);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 20);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "City";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(6, 121);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(125, 20);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Phone number";
             // 
-            // txtBox_City
+            // lbl_Price
             // 
-            this.txtBox_City.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtBox_City.Location = new System.Drawing.Point(6, 40);
-            this.txtBox_City.Name = "txtBox_City";
-            this.txtBox_City.Size = new System.Drawing.Size(193, 26);
-            this.txtBox_City.TabIndex = 2;
+            this.lbl_Price.AutoSize = true;
+            this.lbl_Price.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_Price.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.lbl_Price.Location = new System.Drawing.Point(349, 141);
+            this.lbl_Price.Name = "lbl_Price";
+            this.lbl_Price.Size = new System.Drawing.Size(0, 31);
+            this.lbl_Price.TabIndex = 6;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label5.Location = new System.Drawing.Point(238, 141);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(98, 31);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Price: ";
             // 
             // txtBox_Post
             // 
@@ -225,50 +239,53 @@
             this.label4.TabIndex = 3;
             this.label4.Text = "Post office number";
             // 
-            // label5
+            // txtBox_City
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label5.Location = new System.Drawing.Point(245, 132);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 31);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Price: ";
+            this.txtBox_City.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.txtBox_City.Location = new System.Drawing.Point(6, 40);
+            this.txtBox_City.Name = "txtBox_City";
+            this.txtBox_City.Size = new System.Drawing.Size(193, 26);
+            this.txtBox_City.TabIndex = 2;
             // 
-            // lbl_Price
+            // label3
             // 
-            this.lbl_Price.AutoSize = true;
-            this.lbl_Price.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lbl_Price.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.lbl_Price.Location = new System.Drawing.Point(312, 101);
-            this.lbl_Price.Name = "lbl_Price";
-            this.lbl_Price.Size = new System.Drawing.Size(0, 31);
-            this.lbl_Price.TabIndex = 6;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(2, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(39, 20);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "City";
             // 
-            // txtBox_Phone
+            // lbl_BookForBuy
             // 
-            this.txtBox_Phone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.txtBox_Phone.Location = new System.Drawing.Point(10, 144);
-            this.txtBox_Phone.Name = "txtBox_Phone";
-            this.txtBox_Phone.Size = new System.Drawing.Size(193, 26);
-            this.txtBox_Phone.TabIndex = 8;
+            this.lbl_BookForBuy.AutoSize = true;
+            this.lbl_BookForBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lbl_BookForBuy.Location = new System.Drawing.Point(240, 112);
+            this.lbl_BookForBuy.Name = "lbl_BookForBuy";
+            this.lbl_BookForBuy.Size = new System.Drawing.Size(57, 20);
+            this.lbl_BookForBuy.TabIndex = 0;
+            this.lbl_BookForBuy.Text = "label3";
             // 
-            // label6
+            // btn_MakeOrder
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(6, 121);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(125, 20);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Phone number";
+            this.btn_MakeOrder.BackColor = System.Drawing.Color.Green;
+            this.btn_MakeOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btn_MakeOrder.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_MakeOrder.Location = new System.Drawing.Point(74, 5);
+            this.btn_MakeOrder.Name = "btn_MakeOrder";
+            this.btn_MakeOrder.Size = new System.Drawing.Size(135, 36);
+            this.btn_MakeOrder.TabIndex = 12;
+            this.btn_MakeOrder.Text = "Order";
+            this.btn_MakeOrder.UseVisualStyleBackColor = false;
+            this.btn_MakeOrder.Click += new System.EventHandler(this.btn_MakeOrder_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(922, 558);
+            this.Controls.Add(this.btn_MakeOrder);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox_Cart);
             this.Controls.Add(this.dataGridView_Cart);
@@ -315,6 +332,7 @@
         private System.Windows.Forms.Label lbl_BookForBuy;
         private System.Windows.Forms.TextBox txtBox_Phone;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button btn_MakeOrder;
     }
 }
 

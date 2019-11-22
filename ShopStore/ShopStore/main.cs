@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data.Linq;
+using System.Net.Mail;
+using System.Net;
 
 namespace ShopStore
 {
@@ -17,10 +19,9 @@ namespace ShopStore
     {
         BookStoreEntities db = null;
         public User currUser = null;
-
-        //Flags
-        bool buyCart = false;
-        bool buyShop = false;
+        
+        int BOOK_ID = 0;
+       
         
         public Main()
         {
@@ -28,10 +29,6 @@ namespace ShopStore
 
             this.MinimumSize = new System.Drawing.Size(938, 597); ;
             this.MaximumSize = new System.Drawing.Size(938, 597); ;
-
-            //SQL_conection = new SqlConnection();
-            //SQL_conection.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            //dc = new DataContext(SQL_conection);
 
             db = new BookStoreEntities();
 
@@ -66,35 +63,10 @@ namespace ShopStore
             cmbBox_SortBy.Items.Add("Name");
             cmbBox_SortBy.Items.Add("From lowest");
             cmbBox_SortBy.Items.Add("From highest");
-
-            dataGridView_Books.GotFocus += DataGridView_Books_GotFocus;
-            dataGridView_Cart.GotFocus += DataGridView_Cart_GotFocus;
-
-
+ 
         }
 
-        private void DataGridView_Cart_GotFocus(object sender, EventArgs e)
-        {
-            dataGridView_Books.ClearSelection();
-            buyCart = true;
-            buyShop = false;
-
-            txtBox_City.Text = "";
-            txtBox_Phone.Text = "";
-            txtBox_Post.Text = "";
-
-        }
-
-        private void DataGridView_Books_GotFocus(object sender, EventArgs e)
-        {
-            dataGridView_Cart.ClearSelection();
-            buyShop = true;
-            buyCart = false;
-            groupBox1.Visible = false;
-            txtBox_City.Text = "";
-            txtBox_Phone.Text = "";
-            txtBox_Post.Text = "";
-        }
+        
 
         private void CmbBox_SortBy_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -141,84 +113,54 @@ namespace ShopStore
 
         private void btn_Buy_Click(object sender, EventArgs e)
         {
-
-            if (buyShop)
-            {
-                if (dataGridView_Books.SelectedRows.Count == 1)
-                {
-                    int index = dataGridView_Books.SelectedRows[0].Index;
-                    int ID = 0;
-                    if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
-                    {
-                        var deleteObj = from item in db.Books
-                                        where item.ID_BOOK == ID
-                                        select item;
-                        foreach (var item in deleteObj)
-                        {
-                            db.Books.Remove(item);
-
-                            Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
-                            db.Sales.Add(new_sale);
-                        }
-                        db.SaveChanges();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Chose one book");
-                }
-                dataGridView_Books.DataSource = db.Books.ToList();
-                dataGridView_Books.Refresh();
-                dataGridView_Books.Update();
+            string nameOfBook = "";
+                    var deleteObj = from item in db.Books
+                                    where item.ID_BOOK == BOOK_ID
+                                    select item;
+            MessageBox.Show(BOOK_ID.ToString());
+            foreach (var item in deleteObj) {
+                db.Books.Remove(item);
+                nameOfBook = item.NameBook;
+                Sale new_sale = new Sale() { ID_BOOK = BOOK_ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
+                        db.Sales.Add(new_sale);
             }
-            else if (buyCart)
-            {
-                if (dataGridView_Cart.SelectedRows.Count == 1)
-                {
-                    int index = dataGridView_Cart.SelectedRows[0].Index;
-                    int ID = 0;
-                    if (Int32.TryParse(dataGridView_Cart[0, index].Value.ToString(), out ID))
-                    {
-                        var deleteObj = from item in db.Books
-                                        where item.ID_BOOK == ID
-                                        select item;
-                        foreach (var item in deleteObj)
-                        {
-                            db.Books.Remove(item);
+            db.SaveChanges();
 
-                            Sale new_sale = new Sale() { ID_BOOK = ID, Login = currUser.Login, DateOfSale = DateTime.Now, Price = item.SalePrice };
-                            db.Sales.Add(new_sale);
-                        }
-                        db.SaveChanges();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Chose one book");
-                }
-                dataGridView_Cart.DataSource = (from item in db.Books
-                                                join item2 in db.Carts on item.ID_BOOK equals item2.Book_ID
-                                                where item2.User_Login == currUser.Login
-                                                select item).ToList();
-                dataGridView_Cart.Refresh();
-                dataGridView_Cart.Update();
-            }
-            else
-            {
-                MessageBox.Show("Chose one book");
-            }
+            //Send to message
+            string msg = "City: " + txtBox_City.Text + ", Post office: " + txtBox_Post.Text + ", Phone number: " + txtBox_Phone.Text + ", Book: " + nameOfBook; 
+            MailMessage message = new MailMessage("korshow9999@gmail.com", "korzhoff.i@gmail.com", "order", msg);
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+
+            client.Credentials = new NetworkCredential("korshow9999@gmail.com", "KORZIK19");
+            client.EnableSsl = true;
+            client.Send(message);
+            ///////////////////////////////////////////////////////////////////////
+
+            dataGridView_Cart.DataSource = (from item in db.Books
+                                            join item2 in db.Carts on item.ID_BOOK equals item2.Book_ID
+                                            where item2.User_Login == currUser.Login
+                                            select item).ToList();
+            dataGridView_Books.DataSource = db.Books.ToList();
+            dataGridView_Cart.Refresh();
+            dataGridView_Cart.Update();
+
+            groupBox1.Visible = false;
+        
         }
         private void pictureBox_Cart_Click(object sender, EventArgs e)
         {
             if (dataGridView_Cart.Visible)
             {
                 dataGridView_Cart.Visible = false;
+
             }
             else
             {
                 dataGridView_Cart.Visible = true;
+                
             }
-
+            dataGridView_Cart.ClearSelection();
         }
         void btn_AddToCart_Click(object sender, EventArgs e)
         {
@@ -228,6 +170,7 @@ namespace ShopStore
                 int ID = 0;
                 if (Int32.TryParse(dataGridView_Books[0, index].Value.ToString(), out ID))
                 {
+                    
                     Cart cartItem = new Cart() { Book_ID = ID, User_Login = currUser.Login };
                     db.Carts.Add(cartItem);
                     db.SaveChanges();
@@ -244,6 +187,27 @@ namespace ShopStore
             else
             {
                 MessageBox.Show("Chose one book");
+            }
+        }
+
+        private void btn_MakeOrder_Click(object sender, EventArgs e) {
+            groupBox1.Visible = true;
+            btn_Buy.Visible = true;
+            if (dataGridView_Cart.SelectedRows.Count == 1) {
+                int index = dataGridView_Cart.SelectedRows[0].Index;
+                
+
+                if (Int32.TryParse(dataGridView_Cart[0, index].Value.ToString(), out BOOK_ID)) {
+                    var deleteObj = from item in db.Books
+                                    where item.ID_BOOK == BOOK_ID
+                                    select item;
+
+                    foreach (var item in deleteObj) {
+
+                        lbl_Price.Text = Convert.ToInt32(item.Price).ToString() + "$";
+                        lbl_BookForBuy.Text = item.NameBook.ToString();
+                    }
+                }
             }
         }
     }
