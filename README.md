@@ -1,8 +1,33 @@
-# Shop store
-Create the Bookstore app. The main objective of the project: to provide the current range of books in the store. You must store the following information about the book: title of the book, Name of the author, name of the publisher, number of pages, genre, year of publication, cost price per sale another book (for example, the second part of the dilogy).The application should allow: add books, delete books, edit book parameters. It is necessary to provide for the possibility of entering by login and password.
-
-## All queries files added to project
-
+# Требования:
+- Необходимо хранить следующую информацию о книгах:
+  - название книги
+  - ФИО автора
+  - название издательства
+  - количество страниц
+  - жанр
+  - год издания
+  - себестоимость
+  - цена для продажи 
+- Приложение должно позволять:
+  - добавлять книги
+  - удалять книги
+  - редактировать параметры книг
+  - списывать книги
+  - вносить книги в акции (например, неделя книг новогодней тематики со скидкой 10%)
+  - откладывать книги для конкретного покупателя. 
+- Приложение должно предоставить функциональность по поиску книг по таким параметрам:
+  - название книги
+  - автор
+  - жанр
+- Приложение должно предоставлять возможность просмотреть:
+  - список новинок
+  - список самых продаваемых книг
+  - список самых популярных авторов
+  - список самых популярных жанров по итогам дня
+  - недели
+  - месяца
+  - года. 
+- Необходимо предусмотреть возможность входа по логину и паролю
 
 ![Снимок](https://user-images.githubusercontent.com/36745094/67957911-5c98d000-fc07-11e9-92b0-5434147c69df.PNG)
 ![Снимок1](https://user-images.githubusercontent.com/36745094/67957910-5c003980-fc07-11e9-876c-fd205861e83f.PNG)
