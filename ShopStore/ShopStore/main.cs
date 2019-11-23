@@ -153,11 +153,13 @@ namespace ShopStore
             if (dataGridView_Cart.Visible)
             {
                 dataGridView_Cart.Visible = false;
-
+                btn_MakeOrder.Visible = false;
+                
             }
             else
             {
                 dataGridView_Cart.Visible = true;
+                btn_MakeOrder.Visible = true;
                 
             }
             dataGridView_Cart.ClearSelection();

@@ -41,19 +41,6 @@ namespace ShopStore
             editBook.PublishName = txtBox_PublishName.Text;
             editBook.Fio = txtBox_Fio.Text;
 
-            //Book newBook = new Book()
-            //{
-            //    DateOfPublishing = dateTimePicker.Value.Date,
-            //    NameBook = txtBox_BookName.Text,
-            //    Pages = Convert.ToInt32(txtBox_Pages.Text),
-            //    Price = Convert.ToDecimal(txtBox_Price.Text),
-            //    SalePrice = Convert.ToDecimal(txtBox_SalePrice.Text),
-            //    PublishName = txtBox_PublishName.Text,
-            //    Fio = txtBox_Fio.Text
-            //};
-
-            //editBook = newBook;
-            
             this.DialogResult = DialogResult.OK;
         }
     }

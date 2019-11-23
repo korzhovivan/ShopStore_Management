@@ -84,7 +84,6 @@
             this.dataGridView_Books.Name = "dataGridView_Books";
             this.dataGridView_Books.Size = new System.Drawing.Size(895, 304);
             this.dataGridView_Books.TabIndex = 2;
-            
             // 
             // cmbBox_SortBy
             // 
@@ -278,6 +277,7 @@
             this.btn_MakeOrder.TabIndex = 12;
             this.btn_MakeOrder.Text = "Order";
             this.btn_MakeOrder.UseVisualStyleBackColor = false;
+            this.btn_MakeOrder.Visible = false;
             this.btn_MakeOrder.Click += new System.EventHandler(this.btn_MakeOrder_Click);
             // 
             // Main
