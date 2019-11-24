@@ -19,5 +19,12 @@
 - Необходимо предусмотреть возможность входа по логину и паролю
 - При покупке книги в магазине, данные о покупке отправляются на почту
 
-![Снимок](https://user-images.githubusercontent.com/36745094/67957911-5c98d000-fc07-11e9-92b0-5434147c69df.PNG)
-![Снимок1](https://user-images.githubusercontent.com/36745094/67957910-5c003980-fc07-11e9-876c-fd205861e83f.PNG)
+# Диаграмма классов
+![diagram_classes](https://user-images.githubusercontent.com/36745094/69484769-5386d180-0e48-11ea-9895-d4ddc87e17fd.jpg)
+# Диаграмма вариантов использования
+![UseCaseDiagram](https://user-images.githubusercontent.com/36745094/69484770-54b7fe80-0e48-11ea-9f41-16562dcee183.jpg)
+# Формы
+![SignIn](https://user-images.githubusercontent.com/36745094/69484773-597cb280-0e48-11ea-9651-425ca32e089f.PNG)
+![Main](https://user-images.githubusercontent.com/36745094/69484776-5c77a300-0e48-11ea-84ee-4c88e43469c6.PNG)
+![Admin](https://user-images.githubusercontent.com/36745094/69484780-613c5700-0e48-11ea-8a88-1424a5624640.PNG)
+![Books](https://user-images.githubusercontent.com/36745094/69484784-66010b00-0e48-11ea-8a49-0ec0d275b2ff.PNG)
