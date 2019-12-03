@@ -117,7 +117,7 @@ namespace ShopStore
                     var deleteObj = from item in db.Books
                                     where item.ID_BOOK == BOOK_ID
                                     select item;
-            MessageBox.Show(BOOK_ID.ToString());
+            
             foreach (var item in deleteObj) {
                 db.Books.Remove(item);
                 nameOfBook = item.NameBook;

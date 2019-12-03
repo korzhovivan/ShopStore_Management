@@ -87,7 +87,6 @@
             this.txtBox_login.Name = "txtBox_login";
             this.txtBox_login.Size = new System.Drawing.Size(209, 31);
             this.txtBox_login.TabIndex = 4;
-            this.txtBox_login.Text = "korzik";
             // 
             // txtBox_password
             // 
@@ -96,7 +95,6 @@
             this.txtBox_password.Name = "txtBox_password";
             this.txtBox_password.Size = new System.Drawing.Size(209, 31);
             this.txtBox_password.TabIndex = 6;
-            this.txtBox_password.Text = "123456";
             // 
             // label2
             // 
